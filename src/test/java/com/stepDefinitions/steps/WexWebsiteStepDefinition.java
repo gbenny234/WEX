@@ -33,7 +33,7 @@ public class WexWebsiteStepDefinition {
 	@Given("^I lunch \"(.*?)\" browser$")
 	public void i_lunch_browser(String desiredBrowser)  {
 		
-		switch(desiredBrowser.toLowerCase())
+		/*switch(desiredBrowser.toLowerCase())
 		{
 		case "firefox": WebDriverManager.firefoxdriver().setup(); driver = new FirefoxDriver(); break;
 		case "chrome": WebDriverManager.chromedriver().setup(); driver = new ChromeDriver(); break;
@@ -44,9 +44,21 @@ public class WexWebsiteStepDefinition {
 			break;
 			
 		}
-		}
+		}*/
 
+		if(desiredBrowser.equalsIgnoreCase(CommonConstants.firefox))
+		{
+			WebDriverManager.firefoxdriver().setup(); driver = new FirefoxDriver();}
 		
+		if(desiredBrowser.equalsIgnoreCase(CommonConstants.chrome)) {
+			WebDriverManager.chromedriver().setup(); driver = new ChromeDriver();
+		}
+		if(desiredBrowser.equalsIgnoreCase(CommonConstants.ie))
+		{
+			InternetExplorerOptions options = new InternetExplorerOptions().introduceFlakinessByIgnoringSecurityDomains();
+			WebDriverManager.iedriver().setup();
+			driver = new InternetExplorerDriver(options);
+		}
 
 		driver.manage().window().maximize();
 
@@ -72,7 +84,8 @@ public class WexWebsiteStepDefinition {
 	 */
 	@And("^I validate homepage is open$")
 	public void i_validate_homepage_is_open() throws InterruptedException  {
-		Thread.sleep(2000); //This hard sleep is needed to allow page title to populate. Intermittently failure without this hard wait.
+		
+		wex.waitForDynamic(30);
 		Assert.assertEquals( driver.getTitle(), "Game-changing payment solutions for every business | WEX Inc.");
 		
 

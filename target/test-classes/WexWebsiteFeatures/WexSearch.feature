@@ -1,8 +1,7 @@
 Feature: Wex website search 
-  I want to use this template for my feature file
-
+  
   Scenario: Validate that Search functionality for Wex website is working as expected using valid(data expected to return data results) data.
-    Given I lunch "firefox" browser
+    Given I lunch "chrome" browser
     When user opens url "https://www.wexinc.com"
     And I validate homepage is open
     Then my focus is on the search functionality
@@ -24,7 +23,7 @@ Feature: Wex website search
     Then I validate that valid data are returned
     
     Scenario: Validate that Search functionality for Wex website is working as expected using invalid(data expected NOT to return data results) data.
-    Given I lunch "firefox" browser
+    Given I lunch "chrome" browser
     When user opens url "https://www.wexinc.com"
     And I validate homepage is open
     Then my focus is on the search functionality
